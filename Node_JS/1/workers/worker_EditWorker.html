@@ -1,0 +1,61 @@
+<html>
+
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../home.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        function EditWorker() {
+            var editWorker = {};
+            editWorker.id = document.getElementById('id').value;
+            editWorker.firstName = document.getElementById('firstName').value;
+            editWorker.lastName = document.getElementById('lastName').value;
+            editWorker.address = document.getElementById('address').value;
+            editWorker.phone = document.getElementById('phone').value;
+            editWorker.email = document.getElementById('email').value;
+            editWorker.isActive = "true";
+
+
+            $.ajax({
+                url: "http://localhost:4000/worker/editWorker",
+                data: editWorker,
+                type: "post",
+                success: function (data) {
+                    alert("Success");
+                },
+                error: function (err) {
+                    alert("Error");
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>edit worker</h1>
+
+    <ul>
+        <li><a style="background-color:greenyellow;" href="../home.html">home</a></li>
+        <li><a href="worker_AddWorker.html">add worker</a></li>
+        <li><a class="active" href="worker_EditWorker.html">edit worker</a></li>
+        <li><a href="worker_AllWorkers.html">all workers</a></li>
+        <li><a href="wroker_WorkersDetails.html">workers details</a></li>
+        <li><a href="worker_DeleteWorker.html">delete worker</a></li>
+
+    </ul>
+
+    <label style="width: 6%; margin-left: 1%;">enter  id</label><input type="text" id="id"><br><br><br>
+    <label style="width: 6%; margin-left: 1%;">firstName</label><input type="text" id="firstName"><br>
+    <label style="width: 6%; margin-left: 1%;">lastName</label><input type="text" id="lastName"><br>
+    <label style="width: 6%; margin-left: 1%;"> address</label><input type="text" id="address"><br>
+    <label style="width: 6%; margin-left: 1%;">phone</label><input type="text" id="phone"><br>
+    <label style="width: 6%; margin-left: 1%;">email</label><input type="text" id="email"><br>
+    <br><br><br>
+    <button class="button" style="vertical-align:middle" onclick="EditWorker()"><span>Edit</span></button><br><br>
+
+</body>
+
+</html>

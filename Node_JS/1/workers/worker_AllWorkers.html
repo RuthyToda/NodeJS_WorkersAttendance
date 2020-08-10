@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../home.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+
+        function generate_table(data) {
+            var body = document.getElementsByTagName("p")[0];
+            var tbl = document.createElement("table");
+            var tblBody = document.createElement("tbody");
+
+
+            var row = document.createElement("tr");
+            var cell = document.createElement("td");
+            var cellText = document.createTextNode("name");
+            cell.appendChild(cellText);
+            row.appendChild(cell);
+            var cell = document.createElement("td");
+            var cellText = document.createTextNode("phone number");
+            cell.appendChild(cellText);
+            row.appendChild(cell);
+
+            tblBody.appendChild(row);
+
+            for (var i = 0; i < data.length; i++) {
+                var row = document.createElement("tr");
+
+                var cell = document.createElement("td");
+                var cellText = document.createTextNode(data[i].name);
+                cell.appendChild(cellText);
+                row.appendChild(cell);
+                var cell = document.createElement("td");
+                var cellText = document.createTextNode(data[i].phone);
+                cell.appendChild(cellText);
+                row.appendChild(cell);
+
+                tblBody.appendChild(row);
+            }
+            tbl.appendChild(tblBody);
+            if (body.firstElementChild) {
+                var lasttbl = body.firstElementChild;
+                body.removeChild(lasttbl)
+                body.appendChild(tbl);
+
+            }
+            else
+                body.appendChild(tbl);
+            tbl.setAttribute("class", "table-responsive");
+        }
+
+        function GetAllWorkers() {
+            $.ajax({
+                url: "http://localhost:4000/worker/getAllWorkers",//קישור לכתובתת הרצויה שאני רוצה שיאזין לה
+                dataType: 'Json',//ברירת מחדל
+                success: function (data) {//אם הצלחת
+                    generate_table(data);
+                }
+            })
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>all worker</h1>
+
+    <ul>
+        <li><a style="background-color:greenyellow;" href="../home.html">home</a></li>
+        <li><a href="worker_AddWorker.html">add worker</a></li>
+        <li><a href="worker_EditWorker.html">edit worker</a></li>
+        <li><a class="active" href="worker_AllWorkers.html">all workers</a></li>
+        <li><a href="wroker_WorkersDetails.html">workers details</a></li>
+        <li><a href="worker_DeleteWorker.html">delete worker</a></li>
+
+    </ul>
+    <button class="button" style="vertical-align:middle" onclick="GetAllWorkers()"><span>get all </span></button>
+    <p id="placeForTable"></p>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../home.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+
+        function generate_table(data) {
+            var body = document.getElementsByTagName("p")[0];
+            var tbl = document.createElement("table");
+            var tblBody = document.createElement("tbody");
+
+
+            var row = document.createElement("tr");
+            var cell = document.createElement("td");
+            var cellText = document.createTextNode("attendance date");
+            cell.appendChild(cellText);
+            cell.setAttribute("font-weight", "bold");
+            row.appendChild(cell);
+            var cell = document.createElement("td");
+            var cellText = document.createTextNode("start hour");
+            cell.appendChild(cellText);
+            cell.setAttribute("font-weight", "bold");
+            row.appendChild(cell);
+            var cell = document.createElement("td");
+            var cellText = document.createTextNode("end hour");
+            cell.appendChild(cellText);
+            cell.setAttribute("font-weight", "bold");
+            row.appendChild(cell);
+            //row.setAttribute("font-weight", "bold");
+
+            tblBody.appendChild(row);
+
+            for (var i = 0; i < data.length; i++) {
+                var row = document.createElement("tr");
+
+                var cell = document.createElement("td");
+                var cellText = document.createTextNode(data[i].date);
+                cell.appendChild(cellText);
+                row.appendChild(cell);
+                var cell = document.createElement("td");
+                var cellText = document.createTextNode(data[i].from);
+                cell.appendChild(cellText);
+                row.appendChild(cell);
+                var cell = document.createElement("td");
+                var cellText = document.createTextNode(data[i].to);
+                cell.appendChild(cellText);
+                row.appendChild(cell);
+
+                tblBody.appendChild(row);
+            }
+            tbl.appendChild(tblBody);
+            if (body.firstElementChild) {
+                var lasttbl = body.firstElementChild;
+                body.removeChild(lasttbl)
+                body.appendChild(tbl);
+
+            }
+            else
+                body.appendChild(tbl);
+            tbl.setAttribute("class", "table-responsive");
+        }
+
+        function getReport() {
+            var worker_Id = document.getElementById('workerId').value;
+            $.ajax({
+                url: "http://localhost:4000/attendance/getReport",
+                data: { worker_Id: worker_Id },
+                type: "get",
+                success: function (data) {
+                    generate_table(data);
+                    console.log('I succeeded.')
+                },
+                error: function (err) {
+                    console.log('Error in get!');
+                }
+            });
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>get report</h1>
+    <ul>
+        <li><a style="background-color:greenyellow;" href="../home.html">home</a></li>
+        <li><a class="active" href="Attendance_GetReport.html">get report</a></li>
+        <li><a href="Attendance_AddJob.html">add job</a></li>
+    </ul>
+
+    <label style="width: 6%; margin-left: 1%;">worker id</label><input type="text" id="workerId"><br>
+    <br>
+    <button class="button" style="vertical-align:middle" onclick="getReport()"><span>get report</span></button><br><br>
+    <p></p>
+
+</body>

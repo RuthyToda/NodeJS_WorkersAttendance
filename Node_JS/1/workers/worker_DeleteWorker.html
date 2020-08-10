@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../home.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        function deleteWorker() {
+            var id = document.getElementById('getId').value;
+            $.ajax({
+                url: "http://localhost:4000/worker/deleteWorker",
+                data: { id: id },
+                dataType: "Json",
+                type: "post",
+                success: function (data) {
+                    alert("Success");
+                },
+                error: function (err) {
+                    alert("Error");
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>delete worker</h1>
+
+    <ul>
+        <li><a style="background-color:greenyellow;" href="../home.html">home</a></li>
+        <li><a href="worker_AddWorker.html">add worker</a></li>
+        <li><a href="worker_EditWorker.html">edit worker</a></li>
+        <li><a href="worker_AllWorkers.html">all workers</a></li>
+        <li><a href="wroker_WorkersDetails.html">workers details</a></li>
+        <li><a class="active" href="worker_DeleteWorker.html">delete worker</a></li>
+
+    </ul>
+    <label style="width: 6%; margin-left: 1%;">enter id </label><input type="text" id="getId"><br><br>
+    <button class="button" style="vertical-align:middle"
+        onclick="deleteWorker()"><span>delete</span></button><br><br>
+
+</body>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../home.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        function AddJobDay() {
+            var jobDay = {};
+            jobDay.worker_Id = document.getElementById('worker_Id').value;
+            jobDay.date = document.getElementById('date').value;
+            jobDay.from = document.getElementById('from').value;
+            jobDay.to = document.getElementById('to').value;
+
+            $.ajax({
+                url: "http://localhost:4000/attendance/addJobDay",
+                data: jobDay,
+                type: "post",
+                success: function (data) {
+                    alert("Success");
+                },
+                error: function (err) {
+                    alert("Error");
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>add job</h1>
+    <ul>
+        <li><a style="background-color:greenyellow;" href="../home.html">home</a></li>
+        <li><a href="Attendance_GetReport.html">get report</a></li>
+        <li><a class="active" href="Attendance_AddJob.html">add job</a></li>
+    </ul>
+    <br>
+    <label style="width: 6%; margin-left: 1%;">worker id</label><input type="text" id="worker_Id"><br>
+    <label style="width: 6%; margin-left: 1%;">date</label><input type="text" id="date"><br>
+    <label style="width: 6%; margin-left: 1%;">from</label><input type="text" id="from"><br>
+    <label style="width: 6%; margin-left: 1%;">to</label><input type="text" id="to"><br>
+    <br>
+    <button class="button" style="vertical-align:middle" onclick="AddJobDay()"><span>Add</span></button><br><br>
+
+</body>

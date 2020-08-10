@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../home.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+
+        function GetWorkersDetails() {
+            var id = document.getElementById('getId').value;
+            $.ajax({
+                url: "http://localhost:4000/worker/getWorkersDetails",
+                data: { id: id },
+                type: "get",
+                dataType: 'Json',
+                success: function (data) {
+                    document.getElementById('id').value = data.worker_Id;
+                    document.getElementById('firstName').value = data.first_Name;
+                    document.getElementById('lastName').value = data.last_Name;
+                    document.getElementById('address').value = data.address;
+                    document.getElementById('phone').value = data.phone;
+                    document.getElementById('email').value = data.email;
+                    document.getElementById('isActive').value = data.isActive;
+                },
+                error: function (err) {
+                    console.log('error in get details');
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>workers deails</h1>
+
+    <ul>
+        <li><a style="background-color:greenyellow;" href="../home.html">home</a></li>
+        <li><a href="worker_AddWorker.html">add worker</a></li>
+        <li><a href="worker_EditWorker.html">edit worker</a></li>
+        <li><a href="worker_AllWorkers.html">all workers</a></li>
+        <li><a class="active" href="wroker_WorkersDetails.html">workers details</a></li>
+        <li><a href="worker_DeleteWorker.html">delete worker</a></li>
+    </ul>
+    <label style="width: 6%; margin-left: 1%;">enter id </label><input type="text" id="getId"><br><br>
+    <button class="button" style="vertical-align:middle" onclick="GetWorkersDetails()"><span>get details
+        </span></button><br><br>
+    <label style="width: 6%; margin-left: 1%;">id</label><input type="text" id="id"><br>
+    <label style="width: 6%; margin-left: 1%;">firstName</label><input type="text" id="firstName"><br>
+    <label style="width: 6%; margin-left: 1%;">lastName</label><input type="text" id="lastName"><br>
+    <label style="width: 6%; margin-left: 1%;"> address</label><input type="text" id="address"><br>
+    <label style="width: 6%; margin-left: 1%;">phone</label><input type="text" id="phone"><br>
+    <label style="width: 6%; margin-left: 1%;">email</label><input type="text" id="email"><br>
+    <label style="width: 6%; margin-left: 1%;">is active</label><input type="text" id="isActive">
+
+</body>
